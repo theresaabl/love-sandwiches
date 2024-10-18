@@ -110,6 +110,19 @@ def calculate_stock_data(data):
     
     return new_stock_data
 
+
+def get_stock_values(data):
+    """
+    Take headings from stock worksheet and return a dictionary with the predicted stock data
+    """
+    headings = SHEET.worksheet("stock").get_all_values()[0]
+    stock_values = {key: value for (key, value) in zip(headings, data)}
+
+    print("Get the following number of sandwiches for the next market:\n")
+    print(stock_values)
+
+    return stock_values
+
 def main():
     """
     Run all program functions
@@ -122,6 +135,7 @@ def main():
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    stock_values = get_stock_values(stock_data)
 
 
 print("\nWelcome to Love Sandwiches Data Automation!\n")
